@@ -1,4 +1,4 @@
-name: Build Luminex Winlator
+name: Build Luminex Windows
 
 on:
   workflow_dispatch:
@@ -11,33 +11,24 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install MinGW compiler
-        run: sudo apt-get update && sudo apt-get install -y mingw-w64 zip
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
 
-      - name: Build Windows executable
-        run: >-
-          x86_64-w64-mingw32-g++
-          -std=c++17 -O2 -static -static-libgcc -static-libstdc++ -municode -mwindows
-          src/main.cpp -lole32 -lshell32
-          -o Luminex-Winlator.exe
-
-      - name: Create portable package
+      - name: Install and build
         run: |
-          mkdir -p package/browser package/profiles
-          cp Luminex-Winlator.exe package/
-          cp README.md package/
-          touch package/browser/INSERISCI_CHROME_O_CHROMIUM_QUI.txt
-          cd package
-          zip -r ../Luminex-Winlator-0.1.zip .
+          npm install
+          npm run dist
 
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
-          name: Luminex-Winlator-0.1
-          path: Luminex-Winlator-0.1.zip
+          name: Luminex-Windows-0.2
+          path: dist/Luminex-Windows-0.2-portable.exe
           if-no-files-found: error

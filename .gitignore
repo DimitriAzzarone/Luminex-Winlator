@@ -1,7 +1,2 @@
-Luminex-Winlator.exe
-Luminex-Winlator-*.zip
-package/
-profiles/
-incognito/
-browser/*.exe
-browser/*.dll
+node_modules/
+dist/
