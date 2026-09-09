@@ -1,7 +1,11 @@
 const {app,BrowserWindow,ipcMain}=require('electron');
 const path=require('path');
 app.commandLine.appendSwitch('disable-gpu-sandbox');
-const prefs=(extra={})=>({contextIsolation:true,nodeIntegration:false,sandbox:true,preload:path.join(__dirname,'preload.js'),...extra});
+app.commandLine.appendSwitch('no-sandbox');
+app.commandLine.appendSwitch('disable-gpu');
+app.commandLine.appendSwitch('disable-gpu-compositing');
+app.commandLine.appendSwitch('disable-features', 'CalculateNativeWinOcclusion');
+const prefs=(extra={})=>({contextIsolation:true,nodeIntegration:false,sandbox:false,preload:path.join(__dirname,'preload.js'),...extra});
 function browser(profile,incognito){
   const partition=incognito?`private-${Date.now()}-${Math.random()}`:`persist:profile-${profile.replace(/[^\w-]/g,'_')}`;
   const win=new BrowserWindow({width:1280,height:820,title:incognito?'Luminex - Incognito':`Luminex - ${profile}`,webPreferences:prefs({partition,webviewTag:true})});
