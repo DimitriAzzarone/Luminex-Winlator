@@ -1,11 +1,8 @@
-name: Build Luminex Windows
+name: Build Luminex Windows minimo
 
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
 
@@ -13,26 +10,23 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
+      - name: Configura compilatore
+        uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Install and build unpacked app
-        run: |
-          npm install
-          npm run dist
+      - name: Compila
+        shell: cmd
+        run: cl /nologo /O1 /Os /MT /DUNICODE /D_UNICODE src\\main.cpp /Fe:Luminex.exe /link /SUBSYSTEM:WINDOWS shell32.lib user32.lib
 
-      - name: Create Winlator ZIP
+      - name: Crea ZIP
         shell: pwsh
-        run: Compress-Archive -Path dist/win-unpacked/* -DestinationPath dist/Luminex-Windows-0.3-Winlator8.zip
+        run: Compress-Archive -Path Luminex.exe -DestinationPath Luminex-Windows-Minimo.zip
 
-      - name: Upload package
+      - name: Carica programma
         uses: actions/upload-artifact@v4
         with:
-          name: Luminex-Windows-0.3-Winlator8
-          path: dist/Luminex-Windows-0.3-Winlator8.zip
+          name: Luminex-Windows-Minimo
+          path: Luminex-Windows-Minimo.zip
           if-no-files-found: error

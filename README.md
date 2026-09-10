@@ -1,18 +1,10 @@
-# Luminex Windows 0.3
+# Luminex Windows minimo
 
-Browser Windows autonomo con motore Chromium incorporato. Non richiede Chrome installato.
+Piccolo programma Windows per Winlator 8 con due soli pulsanti:
 
-## Funzioni
+- Google
+- Google Drive
 
-- barra indirizzi, navigazione e schede multiple;
-- profili di navigazione persistenti e separati;
-- apertura simultanea di profili diversi per usare account Gmail differenti;
-- sessioni incognito conservate soltanto in memoria;
-- motore Chromium incluso nell'eseguibile;
-- nessuna password letta o salvata da Luminex.
+Apre i siti nel browser Windows predefinito del container. L'eseguibile non incorpora Chromium o Electron.
 
-Questa versione conserva tutte le funzioni del browser e modifica soltanto la compatibilità: Electron 28, rendering software, sandbox disattivata e pacchetto già estratto.
-
-GitHub Actions produce `Luminex-Windows-0.3-Winlator8.zip`. Estrai l'intero ZIP e avvia `Luminex-Windows.exe`; non spostare il solo eseguibile fuori dalla cartella.
-
-La sandbox è disattivata esclusivamente per compatibilità con Wine/Winlator. La compatibilità con Gmail deve essere verificata inizialmente con un account di prova.
+Scarica l'artifact `Luminex-Windows-Minimo`, estrai lo ZIP e avvia `Luminex.exe`.
